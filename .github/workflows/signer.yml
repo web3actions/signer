@@ -1,0 +1,15 @@
+name: GitHub Data Signer
+on:
+  issues:
+    types: [ opened ]
+jobs:
+  sign:
+    name: Sign
+    runs-on: ubuntu-latest
+    steps:
+      uses: cryptoactions/signer@593fa08f4aaf9a4b206d3d7876cd6f8746093a4b
+      with:
+        signer-contract: 0xd022f3294f34gd022f32d022f3294f34cd012f32
+        rpc-node: ${{ secrets.RPC_NODE }}
+        key: '...'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
