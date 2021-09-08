@@ -2,6 +2,7 @@ const core = require('@actions/core')
 const github = require('@actions/github')
 const { ethers } = require('ethers')
 const axios = require('axios')
+const { getFirstDeepestValue } = require('@cryptoactions/sdk')
 
 const run = async () => {
   // inputs
@@ -20,7 +21,7 @@ const run = async () => {
   const requestId = Number(github.context.payload.issue.body)
   const request = await signerContract.getRequest(requestId)
   const response = await octokit.graphql(request.query, { nodeId: request.nodeId })
-  const result = getDeepestValue(response.node)
+  const result = getFirstDeepestValue(response)
   const resultHash = ethers.utils.solidityKeccak256(
     ['string', 'string',  getResultType(result)],
     [request.query, request.nodeId, result]
@@ -42,19 +43,6 @@ const run = async () => {
       body: JSON.stringify({ requestId, result, signature })
     })
   }
-}
-
-const getDeepestValue = (object) => {
-  if (typeof object === 'string' || typeof object === 'number' || typeof object === 'boolean') {
-    return object
-  }
-
-  const keys = Object.keys(object)
-  if (keys.length && !Array.isArray(object)) {
-    return getDeepestValue(object[keys[0]])
-  }
-
-  return null
 }
 
 const getResultType = (result) => {
