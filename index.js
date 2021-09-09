@@ -33,7 +33,7 @@ const run = async () => {
         ['string', 'string',  getResultType(result)],
         [requestDetails[0], requestDetails[1], result]
       )
-      const signature = await wallet.signMessage(resultMessage)
+      const signature = await wallet.signMessage("Hallo Welt!")
       console.log(resultMessage.length, signature.length)
       status = JSON.stringify({ result, signature })
     } else {
