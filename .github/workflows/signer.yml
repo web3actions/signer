@@ -8,9 +8,9 @@ jobs:
     name: Sign Oracle Request
     runs-on: ubuntu-latest
     steps:
-      uses: cryptoactions/signer@593fa08f4aaf9a4b206d3d7876cd6f8746093a4b
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        rpc-node: ${{ secrets.RPC_NODE }}
-        wallet-key: ${{ secrets.WALLET_KEY }}
-        contract-address: "0xB00062765218A463C349C3B023CDAeDC84293b65"
+      - uses: cryptoactions/signer@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          rpc-node: ${{ secrets.RPC_NODE }}
+          wallet-key: ${{ secrets.WALLET_KEY }}
+          contract-address: "0xB00062765218A463C349C3B023CDAeDC84293b65"
