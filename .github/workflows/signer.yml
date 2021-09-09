@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: cryptoactions/signer@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT }}
           rpc-node: ${{ secrets.RPC_NODE }}
           wallet-key: ${{ secrets.WALLET_KEY }}
           contract-address: "0xB00062765218A463C349C3B023CDAeDC84293b65"
