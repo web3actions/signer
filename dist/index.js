@@ -42414,6 +42414,8 @@ const run = async () => {
         [requestDetails[0], requestDetails[1], result]
       )
       const signature = await wallet.signMessage(resultMessage)
+      const recoveredAddress = ethers.utils.verifyMessage(resultMessage, signature);
+      console.log(recoveredAddress)
       status = JSON.stringify({ result, signature })
     } else {
       status += `Error: Request not found.`
