@@ -40,7 +40,7 @@ const run = async () => {
       status += `Error: Request not found.`
     }
   } catch (e) {
-    console.log(e, github)
+    console.log(JSON.stringify({ e, github }, null, 2))
     status = `Error: ${JSON.stringify(e, null, 2)}`
   }
   
