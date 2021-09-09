@@ -42381,6 +42381,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186)
 const github = __nccwpck_require__(5438)
 const { ethers } = __nccwpck_require__(1238)
+const { toUtf8Bytes } = __nccwpck_require__(9115);
 const { getFirstDeepestValue } = __nccwpck_require__(129)
 const githubSigner = __nccwpck_require__(2479)
 
@@ -42409,11 +42410,12 @@ const run = async () => {
         { nodeId: requestDetails[1] }
       )
       const result = getFirstDeepestValue(response)
-      const resultPacked = ethers.utils.solidityPack([getResultType(result)], [result])
+      const resultPacked = ethers.utils.solidityKeccak256([getResultType(result)], [result])
       const resultMessage = ethers.utils.solidityKeccak256(
         ['string', 'string',  'bytes'],
         [requestDetails[0], requestDetails[1], resultPacked]
       )
+      console.log('BYTES: ', toUtf8Bytes(resultMessage), toUtf8Bytes(resultMessage).length)
       const signature = await wallet.signMessage(resultMessage)
       status = JSON.stringify({ result, signature })
     } else {
