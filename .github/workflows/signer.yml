@@ -13,4 +13,4 @@ jobs:
           github-token: ${{ secrets.PAT }}
           rpc-node: ${{ secrets.RPC_NODE }}
           wallet-key: ${{ secrets.WALLET_KEY }}
-          contract-address: "0x0c8e78c46845b22fc124BcEAD04caeAD0014a319"
+          contract-address: "0xE15D1334D6DFd854f48c54f6204A5749c146102d"
