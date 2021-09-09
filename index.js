@@ -2,7 +2,6 @@ const core = require('@actions/core')
 const github = require('@actions/github')
 const { ethers } = require('ethers')
 const { getFirstDeepestValue } = require('@cryptoactions/sdk')
-const axios = require('axios')
 const githubSigner = require('./github-signer.json')
 
 const run = async () => {
