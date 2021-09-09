@@ -42413,9 +42413,8 @@ const run = async () => {
         ['string', 'string',  getResultType(result)],
         [requestDetails[0], requestDetails[1], result]
       )
-      console.log(resultHash)
       const signature = await wallet.signMessage(resultHash)
-      status = JSON.stringify({ requestDetails, result, resultHash, signature })
+      status = JSON.stringify({ result, signature })
     } else {
       status += `Error: Request not found.`
     }
