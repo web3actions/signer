@@ -42395,6 +42395,7 @@ const run = async () => {
   // wallet/contract
   const provider = new ethers.providers.JsonRpcProvider(rpcNode)
   const wallet = new ethers.Wallet(walletKey, provider)
+  console.log(wallet.address)
   const contract = new ethers.Contract(contractAddress, githubSigner.abi, provider)
   const contractWithWallet = contract.connect(wallet)
 
