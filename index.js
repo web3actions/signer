@@ -1,7 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
 const { ethers } = require('ethers')
-const { toUtf8Bytes } = require('@ethersproject/strings');
 const { getFirstDeepestValue } = require('@cryptoactions/sdk')
 const githubSigner = require('./github-signer.json')
 
@@ -30,12 +29,10 @@ const run = async () => {
         { nodeId: requestDetails[1] }
       )
       const result = getFirstDeepestValue(response)
-      const resultPacked = ethers.utils.solidityKeccak256([getResultType(result)], [result])
       const resultMessage = ethers.utils.solidityKeccak256(
-        ['string', 'string',  'bytes'],
-        [requestDetails[0], requestDetails[1], resultPacked]
+        ['string', 'string',  getResultType(result)],
+        [requestDetails[0], requestDetails[1], result]
       )
-      console.log('BYTES: ', toUtf8Bytes(resultMessage), toUtf8Bytes(resultMessage).length)
       const signature = await wallet.signMessage(resultMessage)
       status = JSON.stringify({ result, signature })
     } else {
