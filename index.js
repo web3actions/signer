@@ -18,28 +18,52 @@ const run = async () => {
   const contract = new ethers.Contract(contractAddress, githubSigner.abi, provider)
   const contractWithWallet = contract.connect(wallet)
 
-  // request
-  console.log(github.context)
-  const request = JSON.parse(github.context.payload.issue.body)
-  const requestDetails = await contractWithWallet.getRequest(request.signatureId)
-  const response = await octokit.graphql(
-    `query($nodeId:ID!) { node(id: $nodeId) { ... on ${requestDetails[0]} } }`,
-    { nodeId: requestDetails[1] }
-  )
-  const result = getFirstDeepestValue(response)
-  const resultHash = ethers.utils.solidityKeccak256(
-    ['string', 'string',  getResultType(result)],
-    [requestDetails[0], requestDetails[1], result]
-  )
-  const signature = await wallet.signMessage(resultHash)
+  // process request
+  let status
+  try {
+    const request = JSON.parse(github.context.payload.issue.body)
+    const requestDetails = await contractWithWallet.getRequest(request.signatureId)
+    if (requestDetails) {
+      const response = await octokit.graphql(
+        `query($nodeId:ID!) { node(id: $nodeId) { ... on ${requestDetails[0]} } }`,
+        { nodeId: requestDetails[1] }
+      )
+      const result = getFirstDeepestValue(response)
+      const resultHash = ethers.utils.solidityKeccak256(
+        ['string', 'string',  getResultType(result)],
+        [requestDetails[0], requestDetails[1], result]
+      )
+      console.log(resultHash)
+      const signature = await wallet.signMessage(resultHash)
+      status = JSON.stringify({ requestDetails, result, resultHash, signature })
+    } else {
+      status += `Error: Request not found.`
+    }
+  } catch (e) {
+    console.log(e, github)
+    status = `Error: ${JSON.stringify(e, null, 2)}`
+  }
+  
 
-  // post result and signature as comment
+  // comment request status
   await octokit.rest.issues.createComment({
-    issue_number: github.context.payload.issue.number,
-    repo: github.context.payload.repository.name,
-    owner: github.context.payload.repository.owner,
-    title: 'Signer Response',
-    body: JSON.stringify({ request, result, signature })
+    issue_number: github.context.issue.number,
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    body: status
+  })
+  // close request
+  await octokit.rest.issues.update({
+    issue_number: github.context.issue.number,
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    state: 'closed'
+  })
+  // lock request
+  await octokit.rest.issues.lock({
+    issue_number: github.context.issue.number,
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
   })
 }
 
