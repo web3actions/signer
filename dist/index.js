@@ -42419,7 +42419,7 @@ const run = async () => {
       status += `Error: Request not found.`
     }
   } catch (e) {
-    console.log(JSON.stringify({ e, github }, getCircularReplacer(), 2))
+    console.log(e, github)
     status = `Error: ${JSON.stringify(e, getCircularReplacer(), 2)}`
   }
   
