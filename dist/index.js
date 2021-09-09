@@ -42409,11 +42409,11 @@ const run = async () => {
         { nodeId: requestDetails[1] }
       )
       const result = getFirstDeepestValue(response)
-      console.log(requestDetails[0], requestDetails[1], result)
       const resultMessage = ethers.utils.solidityKeccak256(
         ['string', 'string',  getResultType(result)],
         [requestDetails[0], requestDetails[1], result]
       )
+      console.log(resultMessage)
       const signature = await wallet.signMessage(resultMessage)
       status = JSON.stringify({ result, signature })
     } else {
