@@ -15,7 +15,7 @@ jobs:
             const workflowRunUrl = `https://api.github.com/repos/${request.owner}/${request.repo}/actions/runs/${request.run}`
             const workflowRun = await github.request(workflowRunUrl)
             const workflow = await github.request(workflowRun.data.workflow_url)
-            const workflowFile = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+            const workflowFile = await github.request('GET /repos/{owner}/{repo}/contents/{path}', {
               owner: request.owner,
               repo: request.repo,
               path: workflow.data.path,
