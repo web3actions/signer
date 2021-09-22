@@ -16,7 +16,6 @@ const run = async () => {
   
     // process request
     const request = JSON.parse(github.context.payload.issue.body)
-    console.log(request)
     const workflowRunUrl = `https://api.github.com/repos/${request.owner}/${request.repo}/actions/runs/${request.runId}`
     const workflowRun = await octokit.request(workflowRunUrl)
     const workflow = await octokit.request(workflowRun.data.workflow_url)
