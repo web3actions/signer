@@ -14,5 +14,5 @@ jobs:
             const workflowRunUrl = context.payload.issue.body
             const workflowRun = await github.request(workflowRunUrl)
             console.log(workflowRun.data)
-            const workflow = await github.request(workflowRun.workflow_url)
+            const workflow = await github.request(workflowRun.data.workflow_url)
             console.log(workflow.data)
