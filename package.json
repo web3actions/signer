@@ -1,16 +1,14 @@
 {
   "name": "@cryptoactions/signer",
-  "version": "1.0.0",
-  "description": "An action that executes a query, signs the result and sends it back to the origin.",
+  "version": "0.0.1",
+  "description": "An action that signs a workflow run, based on the file hash and run id.",
   "main": "index.js",
   "dependencies": {
     "@actions/core": "^1.5.0",
     "@actions/github": "^5.0.0",
-    "@cryptoactions/sdk": "file:../sdk",
     "@vercel/ncc": "^0.30.0",
     "ethers": "^5.4.6"
   },
-  "devDependencies": {},
   "scripts": {
     "build": "ncc build index.js -o dist"
   },
@@ -18,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/cryptoactions/signer.git"
   },
-  "author": "",
+  "author": "mktcode",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cryptoactions/signer/issues"
