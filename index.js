@@ -31,11 +31,17 @@ const run = async () => {
       [workflowFile.data.sha, request.runId]
     ))
     const signature = await wallet.signMessage(message)
-    octokit.rest.issues.createComment({
+    await octokit.rest.issues.createComment({
       issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       body: signature
+    })
+    await octokit.rest.issues.update({
+      issue_number: github.context.issue.number,
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      state: 'closed'
     })
   } catch (e) {
     core.setFailed(e.message)
