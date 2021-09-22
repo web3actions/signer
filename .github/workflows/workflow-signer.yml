@@ -11,8 +11,14 @@ jobs:
       - uses: actions/github-script@v4
         with:
           script: |
-            const workflowRunUrl = context.payload.issue.body
+            const request = JSON.parse(context.payload.issue.body)
+            const workflowRunUrl = `https://api.github.com/repos/${request.owner}/${request.repo}/actions/runs/${request.run}`
             const workflowRun = await github.request(workflowRunUrl)
-            console.log(workflowRun.data)
             const workflow = await github.request(workflowRun.data.workflow_url)
-            console.log(workflow.data)
+            const workflowFile = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+              owner: request.owner,
+              repo: request.repo,
+              path: workflow.data.path,
+              ref: workflowRun.data.head_sha
+            })
+            console.log(workflowFile.data.sha)
