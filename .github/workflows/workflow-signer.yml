@@ -1,0 +1,18 @@
+name: GitHub Workflow Signer
+on:
+  issues:
+    types: [ opened ]
+
+jobs:
+  sign:
+    name: Sign Workflow Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        with:
+          script: |
+            const workflowRunUrl = context.payload.issue.body
+            const workflowRun = await github.request(workflowRunUrl)
+            console.log(workflowRun)
+            const workflow = await github.request(workflowRun.workflow_url)
+            console.log(workflow)
