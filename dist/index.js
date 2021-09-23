@@ -39428,7 +39428,7 @@ const run = async () => {
       issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      body: signature
+      body: JSON.stringify({ signature })
     })
     await octokit.rest.issues.update({
       issue_number: github.context.issue.number,
