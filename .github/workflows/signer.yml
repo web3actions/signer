@@ -8,7 +8,7 @@ jobs:
     name: Sign Workflow Run
     runs-on: ubuntu-latest
     steps:
-      - uses: cryptoactions/signer@edca6a44467709cf2674d1f1445daaafaf827864
+      - uses: web3actions/signer@edca6a44467709cf2674d1f1445daaafaf827864
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           rpc-node: ${{ secrets.RPC_NODE }}
