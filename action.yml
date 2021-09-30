@@ -2,10 +2,7 @@ name: GitHub Workflow Signer
 description: An action that signs a workflow run, based on the file hash and run id.
 inputs:
   github-token:
-    desciption: A GitHub personal access token to make API calls and post comments.
-    required: true
-  rpc-node:
-    description: An ethereum RPC node.
+    desciption: A GitHub personal access token to make API calls and post signatures.
     required: true
   wallet-key:
     description: The key for the Ethereum account to sign messages.

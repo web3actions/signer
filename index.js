@@ -7,12 +7,10 @@ const run = async () => {
     // inputs
     const githubToken = core.getInput('github-token')
     const octokit = github.getOctokit(githubToken)
-    const rpcNode = core.getInput('rpc-node')
     const walletKey = core.getInput('wallet-key')
   
-    // wallet/contract
-    const provider = new ethers.providers.JsonRpcProvider(rpcNode)
-    const wallet = new ethers.Wallet(walletKey, provider)
+    // wallet
+    const wallet = new ethers.Wallet(walletKey)
   
     // process request
     const request = JSON.parse(github.context.payload.issue.body)
