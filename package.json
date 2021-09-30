@@ -1,5 +1,5 @@
 {
-  "name": "@cryptoactions/signer",
+  "name": "@web3actions/signer",
   "version": "0.0.1",
   "description": "An action that signs a workflow run, based on the file hash and run id.",
   "main": "index.js",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cryptoactions/signer.git"
+    "url": "git+https://github.com/web3actions/signer.git"
   },
   "author": "mktcode",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cryptoactions/signer/issues"
+    "url": "https://github.com/web3actions/signer/issues"
   },
-  "homepage": "https://github.com/cryptoactions/signer#readme"
+  "homepage": "https://github.com/web3actions/signer#readme"
 }
