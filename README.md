@@ -24,3 +24,5 @@ Issue body payload:
 ```json
 {"owner": "web3actions", "repo": "booster", "runId": 1234567890}
 ```
+
+**This repo's signing address: 0xaF7A78596e4fA588EAB254F5786D87255a16d49C**
