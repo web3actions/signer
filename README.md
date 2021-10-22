@@ -1,5 +1,7 @@
 # Workflow Signer
 
+*This repository holds the reusable signer actions but also acts as a signer itself. This repo's signing address: 0xaF7A78596e4fA588EAB254F5786D87255a16d49C*
+
 An action that takes a repository and a workflow run id and signs the hash of the workflow file.
 
 ```yaml
@@ -24,5 +26,3 @@ Issue body payload:
 ```json
 {"owner": "web3actions", "repo": "booster", "runId": 1234567890}
 ```
-
-**This repo's signing address: 0xaF7A78596e4fA588EAB254F5786D87255a16d49C**
