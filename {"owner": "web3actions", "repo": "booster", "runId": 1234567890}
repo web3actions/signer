@@ -1,0 +1,25 @@
+name: Workflow Signer
+
+on:
+
+  issues:
+
+    types: [ opened ]
+
+jobs:
+
+  sign:
+
+    name: Sign Workflow Run
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: web3actions/signer@edca6a44467709cf2674d1f1445daaafaf827864
+
+        with:
+
+          github-token: ${{ secrets.GITHUB_TOKEN }} # to read information about workflow run
+
+          wallet-key: ${{ secrets.WALLET_KEY }}
